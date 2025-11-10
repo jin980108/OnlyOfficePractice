@@ -1,18 +1,40 @@
-# React + Vite
+# OnlyOfficePractice
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ONLYOFFICE DocSpace를 React(Vite) 환경에서 연동해 보는 연습용 프로젝트입니다.  
+로그인 화면에서 사용자 입력을 받고, DocSpace SDK를 이용해 문서 공간을 임베드합니다.
 
-Currently, two official plugins are available:
+## 환경 구성
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js 18+
+- npm 10+
 
-## React Compiler
+## 설치 및 실행
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+```bash
+npm install
+npm run dev
+```
 
-Note: This will impact Vite dev & build performances.
+기본 개발 서버 포트는 `5173`입니다.
 
-## Expanding the ESLint configuration
+## 환경 변수
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+루트에 `.env` 파일을 생성하고 DocSpace 주소를 설정하세요.
+
+```
+VITE_DOCSPACE_URL=https://example.onlyoffice.com
+```
+
+## 주요 기능
+
+- 로그인 페이지에서 아이디/비밀번호 입력 및 기본 유효성 검사
+- 버튼 클릭 시 ONLYOFFICE DocSpace 프레임 로드
+- DocSpace 헤더 영역에서 닫기 버튼을 통해 다시 로그인 화면으로 이동
+
+## 빌드
+
+```bash
+npm run build
+```
+
+생성된 `dist` 폴더를 배포 서버에 업로드하면 됩니다.
