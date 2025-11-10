@@ -27,6 +27,8 @@ const OnlyOfficePage = ({ onBack }) => {
     []
   );
 
+  // const docSpace = DocSpace.SDK.initViewer({ config });
+
   const handleExit = () => {
     if (instance) {
       instance.logout?.();
@@ -41,7 +43,7 @@ const OnlyOfficePage = ({ onBack }) => {
       <header className="toolbar">
         <div className="toolbar__info">
           <h2 className="toolbar__title">DocSpace</h2>
-          <span className="toolbar__subtitle">{DOCSPACE_URL}</span>
+          <span className="toolbar__subtitle"> {DOCSPACE_URL}</span>
         </div>
         <button type="button" className="button" onClick={handleExit}>
           닫기
