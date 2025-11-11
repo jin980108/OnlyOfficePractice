@@ -17,6 +17,28 @@ npm run dev
 
 기본 개발 서버 포트는 `5173`입니다.
 
+## 백엔드(예시)
+
+`server/` 디렉터리에 Express 기반 API를 추가했습니다. PostgreSQL과의 연결 상태를 `/api/health` 경로에서 확인할 수 있습니다.
+
+### 서버 설치 및 실행
+
+```bash
+cd server
+npm install
+cp env.example .env # 환경 변수 파일 작성
+npm start
+```
+
+주요 환경 변수:
+
+- `DATABASE_URL`: PostgreSQL 접속 문자열(예: `postgresql://user:pass@localhost:5432/onlyoffice`)  
+  또는 `PGHOST`, `PGPORT`, `PGDATABASE`, `PGUSER`, `PGPASSWORD` 항목을 각각 설정할 수도 있습니다.
+- `PGSSLMODE`: 필요하면 `require`로 설정 (검증 생략)  
+- `CORS_ORIGIN`: 프런트엔드 출처, 기본값은 `*`
+
+서버는 기본적으로 4000 포트에서 실행됩니다.
+
 ## 환경 변수
 
 루트에 `.env` 파일을 생성하고 DocSpace 주소를 설정하세요.

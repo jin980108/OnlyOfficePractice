@@ -3,54 +3,73 @@ import PropTypes from "prop-types";
 import { DocSpace } from "@onlyoffice/docspace-react";
 
 const DOCSPACE_URL =
-  import.meta.env.VITE_DOCSPACE_URL || "https://docspace-s7y06t.onlyoffice.com"; //자신의 DocSpace URL 주소 (WORKSPACE_URL)
+  import.meta.env.VITE_DOCSPACE_URL || "https://docspace-s7y06t.onlyoffice.com";
 
 const OnlyOfficePage = ({ onBack }) => {
   const [instance, setInstance] = useState(null);
 
+  const handleExit = () => {
+    instance?.destroyFrame?.();
+    onBack?.();
+  };
+
   const docspaceConfig = useMemo(
     () => ({
-      frameId: "onlyoffice-docspace",
-      mode: "manager",
+      frameId: "docspace-manager",
       width: "100%",
       height: "100%",
+      locale: "ko-KR",
       checkCSP: false,
+      editorCustomization: {
+        locale: "ko-KR",
+        region: "KR",
+      },
       events: {
-        onAppReady: () => {
-          console.log("DocSpace가 준비되었습니다.");
-        },
-        onAppError: (error) => {
-          console.error("DocSpace 오류:", error);
+        onSelectCallback: (item) => {
+          const fileId = item?.id || item?.fileId;
+          if (!fileId) {
+            return false;
+          }
+
+          const token =
+            item?.requestToken ||
+            item?.actions?.downloadToken ||
+            item?.actions?.token ||
+            null;
+          const baseUrl = DOCSPACE_URL.replace(/\/$/, "");
+          const viewerUrl = new URL(`${baseUrl}/doceditor`);
+
+          viewerUrl.searchParams.set("fileId", fileId);
+          viewerUrl.searchParams.set("action", "view");
+          if (token) {
+            viewerUrl.searchParams.set("requestToken", token);
+          }
+
+          window.open(viewerUrl.toString(), "_blank", "noopener");
+          item.preventDefault = true;
+          return false;
         },
       },
     }),
     []
   );
 
-  // const docSpace = DocSpace.SDK.initViewer({ config });
-
-  const handleExit = () => {
-    if (instance) {
-      instance.logout?.();
-      instance.destroyFrame?.();
-    }
-
-    onBack?.();
-  };
-
   return (
     <div className="page page--full">
       <header className="toolbar">
         <div className="toolbar__info">
-          <h2 className="toolbar__title">DocSpace</h2>
-          <span className="toolbar__subtitle"> {DOCSPACE_URL}</span>
+          <h2 className="toolbar__title">OnlyOffice DocSpace</h2>
+          <span className="toolbar__subtitle">{DOCSPACE_URL}</span>
         </div>
         <button type="button" className="button" onClick={handleExit}>
           닫기
         </button>
       </header>
 
-      <div className="docspace-container">
+      <div
+        className="docspace-container"
+        style={{ height: "calc(100vh - 60px)" }}
+      >
         <DocSpace
           url={DOCSPACE_URL}
           config={docspaceConfig}
