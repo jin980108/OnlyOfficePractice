@@ -1,6 +1,6 @@
 # OnlyOfficePractice
 
-ONLYOFFICE DocSpace를 React(Vite) 환경에서 연동해 보는 연습용 프로젝트입니다.  (2025-11-13) 관련 고객사 라이브러리 커스텀 및 라이센스 조사
+ONLYOFFICE DocSpace를 React(Vite) 환경에서 연동해 보는 연습용 프로젝트입니다.  (2025-11-13) 관련 고객사 라이브러리 커스텀 및 라이센스 조사 , 요구사항 추가
 로그인 화면에서 사용자 입력을 받고, DocSpace SDK를 이용해 문서 공간을 임베드합니다.
 
 ## 환경 구성
